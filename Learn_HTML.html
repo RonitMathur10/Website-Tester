@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Teaser Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background: #f4f4f4;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            width: 300px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        input, button {
+            padding: 10px;
+            margin-top: 10px;
+            width: 90%;
+            font-size: 1em;
+        }
+
+        #result {
+            margin-top: 30px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Welcome to the Brain Teaser Generator</h1>
+    <p>Enter your name and age to get a brain teaser!</p>
+
+    <form id="teaserForm">
+        <input type="text" id="name" placeholder="Your Name" required><br>
+        <input type="number" id="age" placeholder="Your Age" required><br>
+        <button type="submit">Get Teaser</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        const teasers = {
+            kid: [
+                "What has hands but cannot clap? (Answer: A clock)",
+                "What has to be broken before you can use it? (Answer: An egg)"
+            ],
+            teen: [
+                "Forward I am heavy, but backward I am not. What am I? (Answer: The word 'ton')",
+                "What comes once in a minute, twice in a moment, but never in a thousand years? (Answer: The letter M)"
+            ],
+            adult: [
+                "I speak without a mouth and hear without ears. I have no body, but I come alive with wind. What am I? (Answer: An echo)",
+                "What disappears as soon as you say its name? (Answer: Silence)"
+            ]
+        };
+
+        document.getElementById('teaserForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const age = parseInt(document.getElementById('age').value);
+            let group;
+
+            if (age <= 12) {
+                group = 'kid';
+            } else if (age <= 19) {
+                group = 'teen';
+            } else {
+                group = 'adult';
+            }
+
+            const teaserList = teasers[group];
+            const randomTeaser = teaserList[Math.floor(Math.random() * teaserList.length)];
+
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').innerHTML = `
+                <h2>Hello, ${name}!</h2>
+                <p>Your Brain Teaser:</p>
+                <blockquote>${randomTeaser}</blockquote>
+            `;
+        });
+    </script>
+
+</body>
+</html>
